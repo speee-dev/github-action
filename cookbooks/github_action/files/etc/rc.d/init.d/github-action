@@ -1,0 +1,84 @@
+#!/bin/sh
+#
+#       /etc/rc.d/init.d/github-action
+#
+#       Daemon for docker.com
+#
+# chkconfig:   2345 99 01
+# description: Engineer's performance monitoring service on Docker
+
+### BEGIN INIT INFO
+# Provides:       github-action
+# Required-Start: $docker
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop:  0 1 6
+# Short-Description: start and stop github-action
+# Description: Engineer's performance monitoring service on Docker
+### END INIT INFO
+
+prog="github-action"
+user="github-action"
+data_dir="/var/local/github_action"
+
+function start() {
+  sudo -u $user docker run \
+    -d --name es -p 9200:9200 \
+    -v "$data_dir":/usr/share/elasticsearch/data \
+    elasticsearch:2.2
+  sudo -u $user docker run \
+    -d --name kibana -p 5601:5601 \
+    --link es:elasticsearch \
+    kibana:4.4
+  sleep 10
+}
+
+function stop() {
+  sudo -u $user docker rm -f kibana
+  sudo -u $user docker rm -f es
+}
+
+function status() {
+  sudo -u $user docker ps -a
+  sudo docker inspect -f {{.State.Running}} es && \
+    sudo docker inspect -f {{.State.Running}} kibana
+  return $?
+}
+
+RETVAL=0
+
+case "$1" in
+
+  start)
+    echo -n $"Starting $prog: "
+    start
+    echo
+    ;;
+
+  stop)
+    echo -n $"Stopping $prog: "
+    stop
+    echo
+    ;;
+
+  restart|try-restart)
+    echo -n $"Restarting $prog: "
+    stop
+    start
+    echo
+    ;;
+
+  status)
+    status
+    RETVAL=$?
+    ;;
+
+  *)
+    RETVAL=2  # Invalid or excess argument(s)
+    ;;
+
+esac
+
+exit $RETVAL

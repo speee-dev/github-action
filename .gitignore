@@ -1,0 +1,5 @@
+/config/settings.local.yml
+**/files/local/*
+!**/files/local/.keep
+/nodes/*
+!/nodes/sample.yml

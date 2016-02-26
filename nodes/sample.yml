@@ -1,0 +1,14 @@
+rbenv:
+  versions:
+    - 2.3.0
+  global: 2.3.0
+  gems:
+    - bundler
+
+docker:
+  users:
+    - ec2-user
+
+github_action:
+  allowed_ips:
+    - xxx.xxx.xxx.xxx

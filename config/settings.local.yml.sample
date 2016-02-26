@@ -1,0 +1,6 @@
+github:
+  access_token: xxxxxxxxxxxxxxxx
+  repository_owner: speee-dev
+
+elasticsearch:
+  host: localhost
