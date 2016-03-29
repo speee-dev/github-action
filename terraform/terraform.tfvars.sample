@@ -1,0 +1,17 @@
+# AWS認証情報
+access_key = "AKXXXXXXXXXXXXX"
+secret_key = "xxxxxxxxxxxxxxx"
+
+# network
+#
+# 会社IP
+speee_ips_count = 2
+speee_ips.0 = "0.0.0.0"
+speee_ips.1 = "0.0.0.0"
+
+# EC2
+#
+# SSH公開鍵リスト
+public_keys_count = 2
+public_keys.0 = "ssh-rsa XXXXXXXXXXXXXXXXXXXX"
+public_keys.1 = "ssh-rsa XXXXXXXXXXXXXXXXXXXX"
