@@ -6,7 +6,6 @@ source 'https://rubygems.org' do
   gem 'byebug'
   gem 'config'
   gem 'elasticsearch'
-  gem 'itamae'
   gem 'octokit'
   gem 'pry-byebug'
   gem 'rake'
